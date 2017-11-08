@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="../../../../favicon.ico">
+
+    <title>{{main_title}}</title>
+
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="/static/mainsite/css/bootstrap.min.css">
+    <!-- Custom styles -->
+    <link rel="stylesheet" href="/static/mainsite/css/feather.css">
+    <link rel="stylesheet" href="/static/mainsite/css/custom.css">
+  </head>
+  <body>
+
+    {% include 'mainsite/navbar.html' %}
+
+    {% block content %}
+    {% endblock %}
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="container">
+
+            <p class="float-right"><a href="#">Back to top</a></p>
+            <p> 
+                &middot;&nbsp;<a href="/contact">Contact us</a>
+                &middot;&nbsp;<a target="_blank" href="https://www.iastate.edu/">Iowa State University</a> 
+                &middot;&nbsp;<a href="/privacy">Privacy</a> 
+                &middot;&nbsp;<a href="/terms">Terms</a><br>
+                <span>© Rochelab. Ce site n'est pas un site sur le cyclimse. Merci de votre compréhension.</span>
+            </p>
+        </div>
+    </footer>
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="/static/mainsite/js/jquery-3.2.1.slim.min.js"></script>
+    <script src="/static/mainsite/js/popper.min.js"></script>
+    <script src="/static/mainsite/js/bootstrap.min.js"></script>
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script src="/static/mainsite/js/ie10-viewport-bug-workaround.js"></script>
+  </body>
+</html>

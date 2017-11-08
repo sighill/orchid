@@ -1,0 +1,119 @@
+{% extends "mainsite/base.html" %}
+{% block content %}
+
+<div class="jumbotron">
+	<div class="container">
+		<div class="row">
+
+			<div class="col-md-8 mb-2">
+				<h1 class="display-3 white">Guadeloupe Orchidées</h1>
+				<p class="lead white">Les plus belles orchidées de Guadeloupe et tout le nécessaire pour les faire pousser.</p>
+				<div class="row justify-content-center">
+					<a href="" type="button" class="btn btn-lg btn-outline-light m-2">Catalogue</a>
+					<a href="" type="button" class="btn btn-lg btn-outline-light m-2">Contact</a>
+					<a href="" type="button" class="btn btn-lg btn-outline-light m-2">Emplacement</a>
+				</div>
+			</div>
+
+			<div class="col-md-3">
+				<img class="img-fluid" src="/static/mainsite/img/main/big_flower_w.png">
+			</div>
+
+		</div>
+	</div>
+</div> <!-- end jumbotron -->
+
+<div class="container">
+	<div class="row featurette">
+
+		<div class="col-md-7 order-md-2">
+			<h1 class="featurette-heading">Notre boutique</h1>
+			<p class="lead text-justify">Ouverte depuis 201X à Goyave, nous vous proposons un large choix d'<a href="">orchidées</a>, de <a href="">plantes variées</a>, de <a href="">pots</a> et aussi de <a href="">petit matériel</a>.</p>
+			<p class="text-justify">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+			<div>
+				<a class="m-1 btn btn-lg btn-outline-secondary" href="/contact">Nous trouver</a>
+				<a class="m-1 btn btn-lg btn-outline-secondary" target="_blank" href="https://www.google.fr/maps/dir//16.150083,-61.584682/@16.1500844,-61.5852727,296m/">Itinéraire google maps</a>
+			</div>
+		</div>
+
+		<div class="col-md-5 order-md-1">
+			<img class="featurette-image img-fluid mx-auto bordered" src="static/mainsite/img/main/boutique_goyave_400.jpg">
+		</div>
+
+	</div> <!-- end row featurette -->
+</div> <!-- end container -->
+
+<div id="main_arousel" class="carousel slide" data-ride="carousel" > <!-- data-interval="6000" -->
+	<ol class="carousel-indicators">
+		{% for item in discounted_items %}
+		{{ forloop.counter }}
+		<li data-target="#main_arousel" data-slide-to="{{ forloop.counter }}"></li>
+		{% endfor %}
+	</ol>
+	<div class="carousel-inner">
+
+		{% for item in discounted_items %}
+		<div class="carousel-item">
+			<div class="row">
+				<div class="col-md-6">
+					<p>{{item.name}}</p>
+					<p><del>{{item.price}}</del> <strong>{{item.DiscountPrice}}</strong></p>
+				</div>
+				<div class="col-md-6">
+					<img class="img-fluid" src="{{item.img}}">
+				</div>
+			</div>
+		</div><!-- end carousel-item -->
+		{% endfor %}
+
+	</div>
+	<!-- ./end carousel-inner -->
+	<a class="carousel-control-prev" href="#myCarousel" role="button" data-slide="prev">
+		<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+		<span class="sr-only">Précédent</span>
+	</a>
+	<a class="carousel-control-next" href="#myCarousel" role="button" data-slide="next">
+		<span class="carousel-control-next-icon" aria-hidden="true"></span>
+		<span class="sr-only">Suivant</span>
+	</a>
+</div>
+
+<div class="container">
+	<div class="row featurette">
+
+		<div class="col-md-7 order-md-1">
+			<h1 class="featurette-heading text-right">Nos serres</h1>
+			<p class="lead text-justify">Notre EARL produit les meilleurs orchidées de Guadeloupe depuis XXX ans.</p>
+			<p class="text-justify">Surplombant la ville de Gourbeyre, plusieurs milliers d'orchidées sont cultivées avec soin sous nos XXX m² de serres. Cette production nous permet d'approvisionner notre boutique de Goyave tout au long de l'année avec des plantes d'excellente qualité : saines, vigoureuses, fleuries ou prêtes à fleurir.</p>
+			<p class="text-justify">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+		</div>
+
+		<div class="col-md-5 order-md-2">
+			<img class="featurette-image img-fluid mx-auto bordered" src="static/mainsite/img/main/serres_400.jpg">
+		</div>
+
+	</div> <!-- end row featurette -->
+</div> <!-- end container -->
+
+<hr class="featurette-divider">
+
+<div class="container marketing">
+	<!-- START THE NEWS -->
+	<div class="row">
+	{% for news in last_news %}
+	<div class="col-lg-4">
+		<img class="rounded-circle" src="{{news.img}}" alt="News image" width="160" height="160">
+		<h2>{{news.title}}</h2>
+		<p>{{news.excerpt}}</p>
+		<p class="text-justify">{{news.content}}</p>
+		{% if news.link %}
+		<p><a class="btn btn-secondary" href="{{news.link}}" role="button" target="_blank">Learn more</a></p>
+		{% endif %}
+	</div><!-- /.col-lg-4 -->
+	{% endfor %}
+	</div><!-- /.row -->
+	<div><p class="text-center"><a class="btn btn-primary" href="/news" role="button">See all news</a></p></div>
+	<!-- /END THE NEWS -->
+</div><!-- /.container -->
+<hr class="featurette-divider">
+{% endblock %}
