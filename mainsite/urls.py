@@ -15,9 +15,15 @@ Including another URLconf
 """
 from django.conf.urls import url
 from django.contrib import admin
-from mainsite.views import *
+from .views import *
+from .models import *
 
 urlpatterns = [
-    url(r'^admin/', admin.site.urls),
-    url(r'^', Home),
+    url(r'^$', Home),
+    url(r'orchidees', OrchideeIndex),
+    url(r'plantes', PlanteIndex),
+    url(r'pots', HardwareIndex, {'hardware_category' : Pot}),
+    url(r'materiel', HardwareIndex, {'hardware_category' : Materiel}),
+    url(r'contact', Contact),
+    url(r'confidentialite', Privacy),
 ]

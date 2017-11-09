@@ -1,0 +1,33 @@
+{% extends "mainsite/base.html" %}
+{% block content %}
+<div class="jumbotron">
+
+		<div class="container">
+			<h1 class="display-3 white pb-5">{{jumbotron_title}}</h1>
+		</div>
+
+</div> <!-- end jumbotron -->
+
+<div id="hardware_index" class="container">
+
+	{% for item in hardware_to_display %}
+
+	<div class="row mb-4">
+
+		<div class="col-sm-3">
+			<a href="{{item.img}}"><img class="img-fluid bordered w_bg" src="{{item.img}}"></a>
+			<h1 class="text-center"><span data-feather="tag"></span>{{item.prix}}€</h1>
+		</div>
+
+		<div class="col-sm-9">
+			<p class="lead">{{item.nom}}</p>
+			<p class="text-justify">{{item.description|linebreaksbr}}</p>
+		</div>
+
+	</div> <!-- /.row -->
+
+	{% endfor %}
+
+</div>
+
+{% endblock %}
