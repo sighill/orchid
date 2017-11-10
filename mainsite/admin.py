@@ -26,10 +26,22 @@ class AdminPlante(admin.ModelAdmin):
 admin.site.register(Plante, AdminPlante)
 
 ###############################################################################
+class AdminPotCategory(admin.ModelAdmin):
+    list_display= ['uid', 'categorie']
+    ordering= ['categorie']
+admin.site.register(PotCategory, AdminPotCategory)
+
+###############################################################################
 class AdminPot(admin.ModelAdmin):
     list_display= ['uid', 'nom', 'prix', 'mis_en_avant', 'discount']
     ordering= ['nom']
 admin.site.register(Pot, AdminPot)
+
+###############################################################################
+class AdminMaterielCategory(admin.ModelAdmin):
+    list_display= ['uid', 'categorie']
+    ordering= ['categorie']
+admin.site.register(MaterielCategory, AdminMaterielCategory)
 
 ###############################################################################
 class AdminMateriel(admin.ModelAdmin):
@@ -39,13 +51,13 @@ admin.site.register(Materiel, AdminMateriel)
 
 #####################################################################
 class AdminBlogTag(admin.ModelAdmin):
-    list_display= ['uid', 'name']
+    list_display= ['uid', 'nom']
     ordering= ['uid']
 admin.site.register(BlogTag, AdminBlogTag)
 
 #####################################################################
 class AdminPostBlog(admin.ModelAdmin):
-    list_display= ['uid','name']
+    list_display= ['uid','titre']
     ordering= ['uid']
 admin.site.register(PostBlog, AdminPostBlog)
 

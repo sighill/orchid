@@ -36,12 +36,18 @@ p{
 	background-color: #2c7a81;
 }
 
+.btn-primary{
+	background-color: #2c7a81;
+	border-color: #2c7a81;
+}
+
 .navbar{
 	background-color: #2c7a81;
 }
 
 .carousel {
-  margin-bottom: 4rem;
+  border-bottom: 2px solid #CCB832;
+  border-top: 2px solid #CCB832;
 }
 
 .carousel-inner{
@@ -81,14 +87,6 @@ p{
 	border: solid 2px rgba(0,0,0,.5);
 }
 
-.btn-primary{
-	background-color: #445f70;
-	border-color: #445f70;
-}
-
-.container{
-	padding-top: 2rem;
-}
 
 .small-margin{
 	margin-top: 2rem;
@@ -142,10 +140,7 @@ p{
 
 .homepage-img{
 	max-height: 28rem;
-}
-
-.home_boutique_img{
-	height: 600px;
+	border-top: 4px solid #CCB832;
 }
 
 footer{

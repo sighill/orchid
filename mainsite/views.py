@@ -133,9 +133,10 @@ def BlogIndex(request):
         Blog main page
     '''
     # Fetch all the posts
-    post_list = PostBlog.objects.all()
+    post_list = PostBlog.objects.all(
+        ).order_by('epingle', 'timestamp').reverse()
     # fetch all the tags
-    tag_list = BlogTag.objects.all()
+    tag_list = BlogTag.objects.all().order_by('nom')
     paginator = Paginator(post_list, 5)
     # Paginate them
     page = request.GET.get('page')

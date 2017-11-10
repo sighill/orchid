@@ -9,11 +9,12 @@ class BlogTag(models.Model):
     # Attributes
     uid = models.AutoField(
         primary_key = True, db_index = True)
-    name = models.CharField(
-        max_length = 50)
+    nom = models.CharField(
+        max_length = 50,
+        help_text="Ne pas mettre d'espace, préférer les tirets.")
     # Methods
     def __str__(self):
-        return str(self.name)
+        return str(self.nom)
 
 #####################################################################
 class PostBlog(models.Model):
@@ -23,17 +24,20 @@ class PostBlog(models.Model):
     # Attributes
     uid = models.AutoField(
         primary_key = True, db_index = True)
-    name = models.CharField(
+    titre = models.CharField(
         max_length = 50)
-    content = models.TextField(
+    contenu = models.TextField(
         )
+    epingle = models.BooleanField(
+    	default = False,
+    	help_text = "Indique si le post est épinglé en début de blog.")
     tags = models.ManyToManyField(
         BlogTag, related_name = 'postblog_blogtag')
     timestamp =  models.DateTimeField(
         default = timezone.now)
     # Methods
     def __str__(self):
-        return str(self.name)
+        return str(self.titre)
 
 ###############################################################################
 class OrchideeGenre(models.Model):
@@ -58,6 +62,23 @@ class Orchidee(models.Model):
 	'''
 		Table des orchidées
 	'''
+	temperature_choices = (
+		('Chaud', 'Chaud'),
+		('Tempéré', 'Tempéré'),
+		('Froid', 'Froid'),
+		)
+	lumiere_choices = (
+		('Ombre', 'Ombre'),
+		('Mi-ombre', 'Mi-ombre'),
+		('Lumière modérée', 'Lumière modérée'),
+		('Forte lumière', 'Forte lumière'),
+		('Soleil', 'Soleil'),
+		)
+	arrosage_choices = (
+		('Modéré', 'Modéré'),
+		('Maintenir humide', 'Maintenir humide'),
+		('Arrosage copieux', 'Arrosage copieux'),
+		)
 	# Attributes
 	uid = models.AutoField(
 		primary_key= True, db_index= True)
@@ -67,6 +88,12 @@ class Orchidee(models.Model):
 		max_length= 255)
 	description = models.TextField(
 		)
+	temperature = models.CharField(
+		max_length= 50, choices = temperature_choices)
+	lumiere = models.CharField(
+		max_length = 50, choices = lumiere_choices)
+	arrosage = models.CharField(
+		max_length = 50, choices = arrosage_choices)
 	img = models.ImageField(
 		upload_to='static/mainsite/img/orchidee/',
 		default= 'static/mainsite/img/orchidee/orchidee_default.png',
@@ -115,6 +142,23 @@ class Plante(models.Model):
 	'''
 		Table des plantes hors orchidées
 	'''
+	temperature_choices = (
+		('Chaud', 'Chaud'),
+		('Tempéré', 'Tempéré'),
+		('Froid', 'Froid'),
+		)
+	lumiere_choices = (
+		('Ombre', 'Ombre'),
+		('Mi-ombre', 'Mi-ombre'),
+		('Lumière modérée', 'Lumière modérée'),
+		('Forte lumière', 'Forte lumière'),
+		('Soleil', 'Soleil'),
+		)
+	arrosage_choices = (
+		('Modéré', 'Modéré'),
+		('Maintenir humide', 'Maintenir humide'),
+		('Arrosage copieux', 'Arrosage copieux'),
+		)
 	# Attributes
 	uid = models.AutoField(
 		primary_key= True, db_index= True)
@@ -124,6 +168,12 @@ class Plante(models.Model):
 		max_length= 255)
 	description = models.TextField(
 		)
+	temperature = models.CharField(
+		max_length= 50, choices = temperature_choices)
+	lumiere = models.CharField(
+		max_length = 50, choices = lumiere_choices)
+	arrosage = models.CharField(
+		max_length = 50, choices = arrosage_choices)
 	img = models.ImageField(
 		upload_to='static/mainsite/img/plante/',
 		default= 'static/mainsite/img/plante/plante_default.png',
@@ -150,6 +200,24 @@ class Plante(models.Model):
 		return str("{} {}".format(self.genre, self.espece))
 
 ###############################################################################
+class PotCategory(models.Model):
+	'''
+	'''
+	# Attributes
+	uid = models.AutoField(
+		primary_key= True, db_index= True)
+	categorie = models.CharField(
+		max_length = 255)
+	img = models.ImageField(
+		upload_to='static/mainsite/img/pot/',
+		default= 'static/mainsite/img/pot/pot_default.png',
+		help_text = "Essayer de recadrer l'image pour qu'elle soit le plus \
+		carrée possible. Si pas d'image fournie, une image par défaut est prévue.")
+	# Methods
+	def __str__(self):
+		return self.categorie
+
+###############################################################################
 class Pot(models.Model):
 	'''
 		Table des pots et poteries
@@ -157,6 +225,8 @@ class Pot(models.Model):
 	# Attributes
 	uid = models.AutoField(
 		primary_key= True, db_index= True)
+	categorie = models.ForeignKey(
+		PotCategory, related_name = 'pot_potcategory')
 	nom = models.CharField(
 		max_length= 255)
 	description = models.TextField(
@@ -187,6 +257,24 @@ class Pot(models.Model):
 		return str(self.nom)
 
 ###############################################################################
+class MaterielCategory(models.Model):
+	'''
+	'''
+	# Attributes
+	uid = models.AutoField(
+		primary_key= True, db_index= True)
+	categorie = models.CharField(
+		max_length = 255)
+	img = models.ImageField(
+		upload_to='static/mainsite/img/materiel/',
+		default= 'static/mainsite/img/materiel/materiel_default.png',
+		help_text = "Essayer de recadrer l'image pour qu'elle soit le plus \
+		carrée possible. Si pas d'image fournie, une image par défaut est prévue.")
+	# Methods
+	def __str__(self):
+		return self.categorie
+
+###############################################################################
 class Materiel(models.Model):
 	'''
 		Table du petit matériel
@@ -194,6 +282,8 @@ class Materiel(models.Model):
 	# Attributes
 	uid = models.AutoField(
 		primary_key= True, db_index= True)
+	categorie = models.ForeignKey(
+		MaterielCategory, related_name = 'materiel_materielcategory')
 	nom = models.CharField(
 		max_length= 255)
 	description = models.TextField(
