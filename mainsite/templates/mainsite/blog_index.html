@@ -1,0 +1,65 @@
+{% extends "mainsite/base.html" %}
+{% block content %}
+<div class="jumbotron">
+
+        <div class="container">
+            <h1 class="display-3 white pb-5">Blog Guadeloupe Orchidées</h1>
+        </div>
+
+</div> <!-- end jumbotron -->
+
+
+<div class="container-fluid col-md-10">
+    {% for post in posts %}
+    <div class="row">
+
+        <div class="container-fluid col-lg-8 text-justify">
+            <h1>{{post.name}}</h1>
+            <div class="mb-3">
+                <span class="align-bottom" data-feather="calendar"></span>
+                <span>{{post.timestamp|date:'d-m-Y'}}</span>
+            </div>
+            <div class="mb-3">
+                <span class="align-bottom" data-feather="bookmark"></span>
+                {% for tag in post.tags.all %}
+                <a class="btn btn-outline-secondary btn-sm mr-1" href="/ogresite/tag/{{tag.uid}}">{{tag.name}}</a>
+                {% endfor %}
+            </div>
+            <hr>
+            
+            {{post.content|linebreaksbr}}
+
+            <hr>
+        </div>
+
+        <div class="container-fluid col-lg-2">
+
+            <p>Explorer ce blog</p>
+            <div class="pagination">
+                <span class="step-links">
+                    {% if posts.has_previous %}
+                        <a href="?page={{ posts.previous_page_number }}">previous</a>
+                    {% endif %}
+
+                    <span class="current">
+                        Page {{ posts.number }} of {{ posts.paginator.num_pages }}.
+                    </span>
+
+                    {% if posts.has_next %}
+                        <a href="?page={{ posts.next_page_number }}">next</a>
+                    {% endif %}
+                </span>
+            </div>
+
+            <hr>
+
+            <p>Tous les tags</p>
+            {% for tag in tag_list %}
+            <a class="btn btn-outline-primary btn-sm btn-block" href="/ogresite/tag/{{tag.uid}}">{{tag.name}}</a>
+            {% endfor %}
+
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

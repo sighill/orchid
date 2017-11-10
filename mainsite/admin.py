@@ -37,6 +37,18 @@ class AdminMateriel(admin.ModelAdmin):
     ordering= ['nom']
 admin.site.register(Materiel, AdminMateriel)
 
+#####################################################################
+class AdminBlogTag(admin.ModelAdmin):
+    list_display= ['uid', 'name']
+    ordering= ['uid']
+admin.site.register(BlogTag, AdminBlogTag)
+
+#####################################################################
+class AdminPostBlog(admin.ModelAdmin):
+    list_display= ['uid','name']
+    ordering= ['uid']
+admin.site.register(PostBlog, AdminPostBlog)
+
 
 '''
 ###############################################################################

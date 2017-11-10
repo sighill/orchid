@@ -26,4 +26,6 @@ urlpatterns = [
     url(r'materiel', HardwareIndex, {'hardware_category' : Materiel}),
     url(r'contact', Contact),
     url(r'confidentialite', Privacy),
+    url(r'cgu', Terms),
+    url(r'blog', BlogIndex),
 ]

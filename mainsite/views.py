@@ -2,6 +2,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from django.template import loader
 from .models import *
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 ###############################################################################
 def Home(request):
@@ -109,12 +110,74 @@ def Contact(request):
 ###############################################################################
 def Privacy(request):
     '''
-        Simple contact view
+        Politique de confidentialité
     '''
     context = {
     }
     template = loader.get_template('mainsite/privacy.html')
-    return HttpResponse(template.render(context, request))    
+    return HttpResponse(template.render(context, request))
+
+###############################################################################
+def Terms(request):
+    '''
+        Termes et conditions
+    '''
+    context = {
+    }
+    template = loader.get_template('mainsite/cgu.html')
+    return HttpResponse(template.render(context, request))
+
+###############################################################################
+def BlogIndex(request):
+    '''
+        Blog main page
+    '''
+    # Fetch all the posts
+    post_list = PostBlog.objects.all()
+    # fetch all the tags
+    tag_list = BlogTag.objects.all()
+    paginator = Paginator(post_list, 5)
+    # Paginate them
+    page = request.GET.get('page')
+    try:
+        posts = paginator.page(page)
+    except PageNotAnInteger:
+        # If page is not an integer, deliver first page.
+        posts = paginator.page(1)
+    except EmptyPage:
+        # If page is out of range (e.g. 9999), deliver last page of results.
+        posts = paginator.page(paginator.num_pages)
+
+    context = {
+        'posts' : posts,
+        'tag_list' : tag_list,
+    }
+    template = loader.get_template('mainsite/blog_index.html')
+    return HttpResponse(template.render(context, request))
+
+#####################################################################
+def BlogTagIndex(request, tag_uid):
+    '''
+        To view the blog posts
+    '''
+    current_state_data = CurrentStateCheck(request.user.id)
+    all_tags = BlogTag.objects.all().order_by('name')
+    tag = BlogTag.objects.get(pk = tag_uid)
+    all_posts = list(PostBlog.objects.filter(tags__uid = tag.uid))
+    for post in all_posts:
+        post.content = post.content.split('</p>')[0]
+    last_posts = all_posts[-5:]
+    page_specifics = {
+        'page_title': 'Vaste :: Blog',
+        'tag': tag,
+        'all_tags': all_tags,
+        'all_posts': all_posts,
+        'last_posts': last_posts,
+    }
+    context = {**current_state_data, **page_specifics}
+    template = loader.get_template(
+    'mainsite/blog_tag_index.html')
+    return HttpResponse(template.render(context, request))
 
 """
 ###############################################################################

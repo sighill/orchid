@@ -1,6 +1,40 @@
 from django.db import models
 from django.utils import timezone
 
+#####################################################################
+class BlogTag(models.Model):
+    '''
+        Posts on the blog
+    '''
+    # Attributes
+    uid = models.AutoField(
+        primary_key = True, db_index = True)
+    name = models.CharField(
+        max_length = 50)
+    # Methods
+    def __str__(self):
+        return str(self.name)
+
+#####################################################################
+class PostBlog(models.Model):
+    '''
+        Posts on the blog
+    '''
+    # Attributes
+    uid = models.AutoField(
+        primary_key = True, db_index = True)
+    name = models.CharField(
+        max_length = 50)
+    content = models.TextField(
+        )
+    tags = models.ManyToManyField(
+        BlogTag, related_name = 'postblog_blogtag')
+    timestamp =  models.DateTimeField(
+        default = timezone.now)
+    # Methods
+    def __str__(self):
+        return str(self.name)
+
 ###############################################################################
 class OrchideeGenre(models.Model):
 	'''
