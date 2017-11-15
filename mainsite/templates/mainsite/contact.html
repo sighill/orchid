@@ -10,14 +10,35 @@
 
 <div class="container">
 
-	<h3 class="mb-3">Boutique Guadeloupe Orchidées</h3>
-	<h4 class="m-3 lead"><i class="align-bottom" data-feather="map-pin"></i> La Rose (parking de la Kaz'bah), 97114 Goyave</h4>
-	<h4 class="m-3 lead"><i class="align-bottom" data-feather="phone-call"></i> <a class="no_decoration" href="tel:05 90 690 721 765">(059) 06 90 30 66 61</a></h4>
-	<h4 class="m-3 lead"><i class="align-bottom" data-feather="phone-call"></i> <a class="no_decoration" href="tel:05 90 690 721 765">(059) 06 90 72 17 65</a></h4>
-	<!-- <h4 class="m-3 lead"><i class="align-bottom" data-feather="mail"></i> <a class="no_decoration" href="mailto:orchid971@gmail.com">Nous envoyer un mail</a></h4> -->
+	{% for message in messages %}
+	<div class="alert alert-success" role="alert">{{ message }}</div>
+	{% endfor %}
 
-	<div class="alert alert-warning" role="alert">
-	  DEV REF 001 : A implémenter : un formulaire de contact direct
+	<h2 class="mb-3">Boutique Guadeloupe Orchidées</h2>
+
+	<h3 class="mb-3"><a href="https://www.google.fr/maps/dir//16.150083,-61.584682/@16.1500844,-61.5852727,296m/" class=""><i class="align-bottom" data-feather="map-pin"></i></a>&nbsp;&nbsp;&nbsp;&nbsp;La Rose, 97114 Goyave</h3>
+	<!-- <a href="" class="btn btn-primary mb-3 white"><i class="align-bottom" data-feather="map-pin"></i></a> -->
+
+	<h3 class="mb-3"><a href="tel:+590 690 306 661" class=""><i class="align-bottom" data-feather="phone-call"></i></a>&nbsp;&nbsp;&nbsp;&nbsp;06 90 30 66 61</h3>
+
+	<h3 class="mb-3"><a href="tel:+590 690 721 765" class=""><i class="align-bottom" data-feather="phone-call"></i></a>&nbsp;&nbsp;&nbsp;&nbsp;06 90 72 17 65</h3>
+
+	<!--<a href="mailto:orchid971@gmail.com" class="btn btn-primary btn-block m-3">
+		<i class="align-bottom" data-feather="mail"></i>Envoyer un mail
+	</a> -->
+
+	<h2 class="mb-3 mt-5" data-toggle="collapse" data-target="#display_message_form" aria-expanded="false" aria-controls="collapseExample" style="cursor: pointer;">
+		Nous écrire <i class="align-bottom" data-feather="chevron-down"></i>
+	</h2>
+
+	<div class="collapse" id="display_message_form">
+
+		<form id="contact_form" action="/contact" method="post">
+			{% csrf_token %}
+			{{ contact_form.as_p }}
+			<input id= "contact_form_submit" type="submit" value="Envoyer message" />
+		</form>
+
 	</div>
 
 	<hr class="featurette-divider">

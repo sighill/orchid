@@ -1,43 +1,44 @@
 from django.db import models
 from django.utils import timezone
+from decimal import Decimal
 
 #####################################################################
 class BlogTag(models.Model):
-    '''
-        Posts on the blog
-    '''
-    # Attributes
-    uid = models.AutoField(
-        primary_key = True, db_index = True)
-    nom = models.CharField(
-        max_length = 50,
-        help_text="Ne pas mettre d'espace, préférer les tirets.")
-    # Methods
-    def __str__(self):
-        return str(self.nom)
+	'''
+		Posts on the blog
+	'''
+	# Attributes
+	uid = models.AutoField(
+		primary_key = True, db_index = True)
+	nom = models.CharField(
+		max_length = 50,
+		help_text="Ne pas mettre d'espace, préférer les tirets.")
+	# Methods
+	def __str__(self):
+		return str(self.nom)
 
 #####################################################################
 class PostBlog(models.Model):
-    '''
-        Posts on the blog
-    '''
-    # Attributes
-    uid = models.AutoField(
-        primary_key = True, db_index = True)
-    titre = models.CharField(
-        max_length = 50)
-    contenu = models.TextField(
-        )
-    epingle = models.BooleanField(
-    	default = False,
-    	help_text = "Indique si le post est épinglé en début de blog.")
-    tags = models.ManyToManyField(
-        BlogTag, related_name = 'postblog_blogtag')
-    timestamp =  models.DateTimeField(
-        default = timezone.now)
-    # Methods
-    def __str__(self):
-        return str(self.titre)
+	'''
+		Posts on the blog
+	'''
+	# Attributes
+	uid = models.AutoField(
+		primary_key = True, db_index = True)
+	titre = models.CharField(
+		max_length = 50)
+	contenu = models.TextField(
+		)
+	epingle = models.BooleanField(
+		default = False,
+		help_text = "Indique si le post est épinglé en début de blog.")
+	tags = models.ManyToManyField(
+		BlogTag, related_name = 'postblog_blogtag')
+	timestamp =  models.DateTimeField(
+		default = timezone.now)
+	# Methods
+	def __str__(self):
+		return str(self.titre)
 
 ###############################################################################
 class OrchideeGenre(models.Model):
@@ -118,6 +119,15 @@ class Orchidee(models.Model):
 	# Methods
 	def __str__(self):
 		return str("{} {}".format(self.genre, self.espece))
+	def DiscountedPrice(self):
+		'''
+			Retourne le prix discount avec un arrondissement au centime.
+			La fonction round se charge d'arrondir à la décimale inférieure
+			ou pas. self.discount est float, converti en decimal
+		'''
+		discount = Decimal(self.discount)
+		discounted_prix = self.prix - (self.prix * (discount/100))
+		return round(discounted_prix,2)
 
 ###############################################################################
 class PlanteGenre(models.Model):
@@ -198,6 +208,15 @@ class Plante(models.Model):
 	# Methods
 	def __str__(self):
 		return str("{} {}".format(self.genre, self.espece))
+	def DiscountedPrice(self):
+		'''
+			Retourne le prix discount avec un arrondissement au centime.
+			La fonction round se charge d'arrondir à la décimale inférieure
+			ou pas. self.discount est float, converti en decimal
+		'''
+		discount = Decimal(self.discount)
+		discounted_prix = self.prix - (self.prix * (discount/100))
+		return round(discounted_prix,2)
 
 ###############################################################################
 class PotCategory(models.Model):
@@ -255,6 +274,15 @@ class Pot(models.Model):
 	# Methods
 	def __str__(self):
 		return str(self.nom)
+	def DiscountedPrice(self):
+		'''
+			Retourne le prix discount avec un arrondissement au centime.
+			La fonction round se charge d'arrondir à la décimale inférieure
+			ou pas. self.discount est float, converti en decimal
+		'''
+		discount = Decimal(self.discount)
+		discounted_prix = self.prix - (self.prix * (discount/100))
+		return round(discounted_prix,2)
 
 ###############################################################################
 class MaterielCategory(models.Model):
@@ -312,3 +340,45 @@ class Materiel(models.Model):
 	# Methods
 	def __str__(self):
 		return str(self.nom)
+	def DiscountedPrice(self):
+		'''
+			Retourne le prix discount avec un arrondissement au centime.
+			La fonction round se charge d'arrondir à la décimale inférieure
+			ou pas. self.discount est float, converti en decimal
+		'''
+		discount = Decimal(self.discount)
+		discounted_prix = self.prix - (self.prix * (discount/100))
+		return round(discounted_prix,2)
+
+
+###############################################################################
+class ContactMessage(models.Model):
+	'''
+		If a customer wants to message the shop.
+	'''
+	# Attributes
+	uid = models.AutoField(
+		primary_key= True, db_index= True)
+	nom = models.CharField(
+		max_length = 100)
+	contenu = models.TextField(
+		)
+	remote_addr = models.CharField(
+		max_length = 400)
+	timestamp = models.DateTimeField(
+		default = timezone.now)
+	# Methods
+	def __str__(self):
+		return str(self.uid)
+
+		
+"""
+###############################################################################
+class (models.Model):
+	'''
+	'''
+	# Attributes
+	# Methods
+	def __str__(self):
+		return str(self.name)
+"""

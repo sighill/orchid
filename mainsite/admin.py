@@ -61,6 +61,11 @@ class AdminPostBlog(admin.ModelAdmin):
     ordering= ['uid']
 admin.site.register(PostBlog, AdminPostBlog)
 
+###############################################################################
+class AdminContactMessage(admin.ModelAdmin):
+    list_display= ['uid',]
+    ordering= ['uid']
+admin.site.register(ContactMessage, AdminContactMessage)
 
 '''
 ###############################################################################

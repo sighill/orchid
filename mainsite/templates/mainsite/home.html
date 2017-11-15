@@ -1,23 +1,14 @@
 {% extends "mainsite/base.html" %}
 {% block content %}
 
-<div class="jumbotron pb-2 mb-0">
-	<div class="container">
-		<div class="row">
+<div class="jumbotron mb-0">
+	<div class="container-fluid">
+		<div class="row d-flex justify-content-around">
 
-			<div class="col-md-9 mb-2">
-				<h1 class="display-3 white">Guadeloupe Orchidées</h1>
-				<p class="lead white">Les plus belles orchidées de Guadeloupe.</p>
-				<p class="lead white">Tout le nécessaire pour en prendre soin.</p>
-				</p>
-				<div class="row">
-					<a href="https://www.google.fr/maps/dir//16.150083,-61.584682/@16.1500844,-61.5852727,296m/" type="button" class="btn btn-lg btn-light m-2"><span data-feather="map-pin"></span> Nous trouver</a>
-					<a href="/contact" type="button" class="btn btn-lg btn-light m-2"><span data-feather="mail"></span> Contact</a>
-				</div>
-			</div>
-
-			<div class="col-md-3">
-				<img class="img-fluid" src="/static/mainsite/img/main/big_flower_w.png">
+			<div class="col-12 m-0 p-1 main_banner">
+				<div class="transparent_bg hidden_div hidden p-2 text-center"><h1 class="m-0 display-4 white ">Guadeloupe Orchidées</h1></div>
+				<div class="transparent_bg hidden_delay_1 hidden p-2 text-center"><p class="lead m-0 white">Les plus belles orchidées de Guadeloupe.</p></div>
+				<div class="transparent_bg hidden_delay_2 hidden p-2 text-center"><p class="lead m-0 white">Tout le nécessaire pour en prendre soin.</p></div>
 			</div>
 
 		</div>
@@ -26,25 +17,28 @@
 
 <div class="container-fluid">
 	<div class="row featurette">
-		<div class="col-xl-6 order-xl-1 pl-0" style="background-image: url('/static/mainsite/img/main/boutique_fade_right.png'); background-repeat: no-repeat; background-position: left">
+
+		<div class="col-xl-7 order-xl-1 pl-0" style="background-image: url('/static/mainsite/img/main/boutique_fade_right.png'); background-repeat: no-repeat; background-position: left">
 			<img src="/static/mainsite/img/main/height_hack.png">
 		</div>
 
-		<div class="col-xl-5 order-xl-2">
+		<div class="col-xl-4 order-xl-2">
+			
 			<h1 class="featurette-heading"><span data-feather="shopping-cart"></span> Notre boutique</h1>
-			<p class="lead text-justify">Ouverte depuis 201X à Goyave, nous vous proposons un large choix d'<a href="">orchidées</a>, de <a href="">plantes variées</a>, de <a href="">pots</a> et aussi de <a href="">petit matériel</a>.</p>
-			<p class="text-justify">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-			<div>
-				<a class="m-1 btn btn-lg btn-outline-secondary" href="/contact">Nous trouver</a>
-				<a class="m-1 btn btn-lg btn-outline-secondary" target="_blank" href="https://www.google.fr/maps/dir//16.150083,-61.584682/@16.1500844,-61.5852727,296m/">Itinéraire google maps</a>
+			
+			<p class="text-justify">Ouverte depuis 201X à Goyave, nous vous proposons un large choix d'orchidées, de plantes variées, de pots et aussi de petit matériel. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+			
+			<div class="row">
+				<a class="btn btn-lg btn-primary m-2" href="/contact"><span class="align-bottom" data-feather="mail"></span> Contact</a>
+				<a class="btn btn-lg btn-primary m-2" href="https://www.google.fr/maps/dir//16.150083,-61.584682/@16.1500844,-61.5852727,296m/"><span class="align-bottom" data-feather="map-pin"></span> Nous trouver</a>
 			</div>
-		</div>
 
+		</div>
 
 	</div> <!-- end row featurette -->
 </div> <!-- end container -->
 
-<div id="main_carousel" class="carousel slide" data-ride="carousel" data-interval="6000">
+<div id="main_carousel" class="carousel slide" data-ride="carousel" data-interval="60000">
 	<ol class="carousel-indicators">
 		{% for item in home_vegetals %}
 		{% if item == home_vegetals.0 %}
@@ -59,11 +53,10 @@
 		{% for item in home_vegetals %}
 		
 		<div class="carousel-item {% if item == home_vegetals.0 %}active{% endif %}">
-			<div class="container">
+			<div class="container mt-5">
 				<div class="row">
-
 					<div class="col-md-6">
-						<img class="align-middle img-fluid homepage-img rounded-bottom" src="{{item.img}}">
+						<a class="colorbox_img" href="{{item.img}}" title="{{item.genre}} {{item.espece}}"><img class="homepage_img bordered img-fluid" src="{{item.img}}"></a>
 						
 					</div>
 
@@ -71,9 +64,11 @@
 						<h1 class="display-3 white mb-2">Offre :</h1>
 						<h1 class="white mb-2">{{item.genre}} {{item.espece}}</h1>
 						{% if item.discount %}
-						<h2 class="display-4 mt-5 white"><span data-feather="tag"></span> Soldé : <del>{{item.prix}} €</del> -{{item.discount}}%</h2>
+						<h2 class="display-4 mt-5 white"><span data-feather="star"></span> Soldé -{{item.discount}}%</h2>
+						<h1 class="display-3 white"><span data-feather="tag"></span> {{item.DiscountedPrice}}€</h1>
 						{% else %}
-						<h2 class="display-4 mt-5 white"><span data-feather="tag"></span> Prix exceptionnel : {{item.prix}} €</h2>
+						<h2 class="display-4 mt-5 white"><span data-feather="star"></span> Prix exceptionnel</h2>
+						<h1 class="display-3 white"><span data-feather="tag"></span> {{item.prix}}€</h1>
 						{% endif %}
 					</div>
 
@@ -96,17 +91,16 @@
 
 <div class="container-fluid">
 	<div class="row featurette justify-content-end">
-		<div class="col-xl-6 order-xl-2 pl-0" style="background-image: url('/static/mainsite/img/main/serres_fade_left.png'); background-repeat: no-repeat; background-position: right">
+
+		<div class="col-xl-7 order-xl-2 pl-0" style="background-image: url('/static/mainsite/img/main/serres_fade_left.png'); background-repeat: no-repeat; background-position: right">
 			<img src="/static/mainsite/img/main/height_hack.png">
 		</div>
 
-		<div class="col-xl-5 order-xl-1">
+		<div class="col-xl-4 order-xl-1">
 			<h1 class="featurette-heading"><span data-feather="sun"></span> Nos serres</h1>
 			<p class="lead text-justify">Notre EARL produit les meilleures orchidées de Guadeloupe depuis XXX ans.</p>
-			<p class="text-justify">Surplombant la ville de Gourbeyre, plusieurs milliers d'orchidées sont cultivées avec soin sous nos XXX m² de serres. Cette production nous permet d'approvisionner notre boutique de Goyave tout au long de l'année avec des plantes d'excellente qualité : saines, vigoureuses, fleuries ou prêtes à fleurir.</p>
-			<p class="text-justify">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+			<p class="text-justify">Surplombant la ville de Gourbeyre, plusieurs milliers d'orchidées sont cultivées avec soin sous nos XXX m² de serres. Cette production nous permet d'approvisionner notre boutique de Goyave tout au long de l'année avec des plantes d'excellente qualité : saines, vigoureuses, fleuries ou prêtes à fleurir. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
 		</div>
-
 
 	</div> <!-- end row featurette -->
 </div> <!-- end container -->

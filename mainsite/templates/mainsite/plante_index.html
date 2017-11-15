@@ -1,5 +1,12 @@
 {% extends "mainsite/base.html" %}
 {% block content %}
+
+<script>
+	$(function () {
+		$('[data-toggle="popover"]').popover()
+	})
+</script>
+
 <div class="jumbotron">
 
 		<div class="container">
@@ -10,12 +17,9 @@
 			{% for genre in all_plante_genres %}
 			<div class="m-2">
 				<a class="white" href="?genre={{genre.genre}}">
-					<img class="bordered mb-3" src="/{{genre.img}}" alt="{{genre.genre}}">
+					<img class="bordered rounded-top" src="/{{genre.img}}" alt="{{genre.genre}}">
 					<div class="text-center">
-						<div class="btn-group" role="group">
-							<button type="button" class="btn btn-outline-light"><h5 class="m-0">{{genre.genre}}</h5></button>
-							<button type="button" class="btn btn-outline-light"><h5 class="m-0">{{genre.plante_plantegenre.count}}</i></h5></button>
-						</div>
+						<h5 class="rounded-bottom item_label m-0 pb-2">{{genre.genre}}</h5>
 					</div>
 				</a>
 			</div>
@@ -40,21 +44,42 @@
 {% else %}
 <div id="species_index" class="container">
 
+
 	<h1 class="text-center">{{chosen_genre}}</h1>
 
 	{% if items_to_display %}
 	{% for item in items_to_display %}
 	<hr class="featurette-divider">
-
 	<div class="row mb-4">
 
 		<div class="col-sm-3">
-			<a href="{{item.img}}"><img class="img-fluid bordered w_bg" src="{{item.img}}"></a>
-			<h1 class="text-center"><span data-feather="tag"></span>{{item.prix}}€</h1>
+			<a class="colorbox_img" href="{{item.img}}" title="{{item.genre}} {{item.espece}}"><img class="rounded-top img-fluid light_bordered w_bg" src="{{item.img}}"></a>
+			<div class="text-center">
+				<h1 class="rounded-bottom item_light_label white"><span data-feather="tag"></span>{{item.prix}}€</h1>
+			</div>
 		</div>
 
 		<div class="col-sm-9">
 			<p class="lead">{{item.genre}} {{item.espece}}</p>
+
+			<button class="btn btn-primary m-2" data-toggle="popover" data-placement="bottom" data-content="Bientôt ici des infos plus précises !">
+				<p class="m-0">
+					<span class="align-text-bottom" data-feather="thermometer"></span>  {{item.temperature}}  <span class="align-text-bottom" data-feather="chevron-down"></span>
+				</p>
+			</button>
+
+			<button class="btn btn-primary m-2" data-toggle="popover" data-placement="bottom" data-content="Bientôt ici des infos plus précises !">
+				<p class="m-0">
+					<span class="align-text-bottom" data-feather="sun"></span>  {{item.lumiere}}  <span class="align-text-bottom" data-feather="chevron-down"></span>
+				</p>
+			</button>
+
+			<button class="btn btn-primary m-2" data-toggle="popover" data-placement="bottom" data-content="Bientôt ici des infos plus précises !">
+				<p class="m-0">
+					<span class="align-text-bottom" data-feather="droplet"></span>  {{item.arrosage}}  <span class="align-text-bottom" data-feather="chevron-down"></span>
+				</p>
+			</button>
+
 			<p class="text-justify">{{item.description|linebreaksbr}}</p>
 		</div>
 
